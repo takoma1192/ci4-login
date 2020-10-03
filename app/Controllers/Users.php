@@ -2,17 +2,64 @@
 
 use App\Models\UserModel; //user model
 
-class Users extends BaseController
-{
-	public function index()
-	{
+class Users extends BaseController {
+
+	public function index() {
 		$data = [];
 
 		helper(['form']);
 
+		// print_r($this->request->getMethod());
+
+		if($this->request->getMethod() === 'post') {
+			// validation
+			$rules = [
+				'email' => 'required|min_length[6]|max_length[50]|valid_email',
+				'password' => 'required|min_length[8]|max_length[255]|validateUser[email,password]',
+			];
+
+			//validateUser - Custome Validate のためErrorメッセージ作成
+			$errors = [
+				'password' => [
+					'validateUser' => 'Email or Password don\'t match'
+				]
+			];
+			
+			if(!$this->validate($rules, $errors)) {
+				$data['validation'] = $this->validator;
+			} else {
+				// store the user in our database
+				$model = new UserModel();
+
+				// User Session - Login
+				$user = $model->where('email', $this->request->getVar('email'))->first();
+
+				$this->setUserSession($user); //<- user method
+
+				return redirect()->to(base_url('dashboard'));
+
+			}
+
+		}
+
 		echo view('templates/header', $data);
 		echo view('login');
 		echo view('templates/footer');
+
+	}
+
+	private function setUserSession($user) {
+		$data = [
+			'id' => $user['id'],
+			'firstname' => $user['firstname'],
+			'lastname' => $user['lastname'],
+			'email' => $user['email'],
+			'isLoggedIn' => true,
+		];
+
+		// Session
+		session()->set($data);
+		return true;
 	}
 
 

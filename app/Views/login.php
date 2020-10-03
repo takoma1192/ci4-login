@@ -9,7 +9,7 @@
                         <?php echo session()->get('success'); ?>
                     </div>
                 <?php endif; ?>
-                <form action="<?php echo base_url(); ?>" method="post" class="">
+                <form action="./" method="post">
                     <div class="form-group">
                         <label for="email">Email address</label>
                         <input type="text" name="email" id="email" class="form-control" value="<?php echo set_value('email'); ?>">
@@ -18,6 +18,15 @@
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" class="form-control" value="">
                     </div>
+
+                    <?php if(isset($validation)): ?>
+                        <div class="col-12">
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $validation->listerrors(); ?>
+                            </div>        
+                        </div>
+                    <?php endif; ?>
+
                     <div class="row">
                         <div class="col-12 col-sm-4">
                             <button type="submit" class="btn btn-primary">ログイン</button>
@@ -26,6 +35,7 @@
                             <a href="<?php echo base_url('/users/register'); ?>">アカウントを持っていない場合</a>
                         </div>
                     </div>
+                    
                 </form>
             </div>
         </div>
