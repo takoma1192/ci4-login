@@ -12,6 +12,7 @@ class Filters extends BaseConfig
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'myauth' => \App\Filters\myAuth::class,
 		'mynoauth' => \App\Filters\myNoAuth::class,
+		'myuserscheck' => \App\Filters\UsersCheck::class,
 	];
 
 	// Always applied before every request
@@ -19,6 +20,7 @@ class Filters extends BaseConfig
 		'before' => [
 			//'honeypot'
 			// 'csrf',
+//			'myuserscheck',
 		],
 		'after'  => [
 			'toolbar',
