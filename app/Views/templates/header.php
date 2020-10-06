@@ -31,13 +31,13 @@
         <a class="nav-link" href="<?php echo base_url('/dashboard'); ?>">Dashboard</a>
       </li>
       <li class="nav-item <?php echo ($uri->getSegment(1) === 'profile' ? 'active' : null); ?>">
-        <a class="nav-link" href="<?php echo base_url('/dashboard/profile'); ?>">プロフィール</a>
+        <a class="nav-link" href="<?php echo base_url('/users/profile'); ?>">プロフィール</a>
       </li>
     </ul>
     
     <ul class="navbar-nav my-2 my-1g-0">
       <li class="nav-item">
-        <a href="<?php echo base_url('/dashboard/logout'); ?>" class="nav-link">ログアウト</a>
+        <a href="<?php echo base_url('/users/logout'); ?>" class="nav-link">ログアウト</a>
       </li>
     </ul>
 
